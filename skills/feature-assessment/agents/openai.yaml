@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feature Assessment"
+  short_description: "Reverse-engineer and assess an existing feature"
+  default_prompt: "Use $feature-assessment to reverse-engineer this implemented feature, explain how it works, and assess its strengths, flaws, risks, and improvement opportunities."
