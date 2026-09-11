@@ -1,40 +1,46 @@
-# Product Definition
+# Agent Skills
 
-[![skills.sh](https://skills.sh/b/cristianmartinez/product-definition)](https://skills.sh/cristianmartinez/product-definition/product-definition)
+[![skills.sh](https://skills.sh/b/cristianmartinez/agent-skills)](https://skills.sh/cristianmartinez/agent-skills)
 
-An interactive Agent Skill that uncovers product blind spots through short decision rounds, then synthesizes the result into a rigorous Product Definition.
+A collection of portable Agent Skills for product and software-development work.
+
+## Skills
+
+| Skill | Purpose |
+|---|---|
+| [`product-definition`](skills/product-definition/) | Uncover product blind spots through short decision rounds, then synthesize a rigorous Product Definition. |
 
 ## Portable by design
 
-The portable skill is [`SKILL.md`](SKILL.md) plus its [`references/`](references/) directory. This follows the open [Agent Skills specification](https://agentskills.io/specification) and can be used by compatible agents without maintaining separate prompt copies.
+Each directory under [`skills/`](skills/) is a self-contained skill. Its portable contract is `SKILL.md` plus any referenced resources. This follows the open [Agent Skills specification](https://agentskills.io/specification) and can be used by compatible agents without maintaining separate prompt copies.
 
-[`agents/openai.yaml`](agents/openai.yaml) contains optional Codex interface metadata. It does not replace or modify the portable instructions, and other agents can ignore it.
+Some skills include `agents/openai.yaml` for optional Codex interface metadata. It does not replace or modify the portable instructions, and other agents can ignore it.
 
 ## Install
 
 Let the CLI detect or prompt for your agent:
 
 ```bash
-npx skills add cristianmartinez/product-definition --skill product-definition
+npx skills add cristianmartinez/agent-skills --skill product-definition
 ```
 
 Install for a particular agent:
 
 ```bash
 # Claude Code
-npx skills add cristianmartinez/product-definition --skill product-definition --agent claude-code
+npx skills add cristianmartinez/agent-skills --skill product-definition --agent claude-code
 
 # Codex
-npx skills add cristianmartinez/product-definition --skill product-definition --agent codex
+npx skills add cristianmartinez/agent-skills --skill product-definition --agent codex
 
 # Cursor
-npx skills add cristianmartinez/product-definition --skill product-definition --agent cursor
+npx skills add cristianmartinez/agent-skills --skill product-definition --agent cursor
 
 # Gemini CLI
-npx skills add cristianmartinez/product-definition --skill product-definition --agent gemini-cli
+npx skills add cristianmartinez/agent-skills --skill product-definition --agent gemini-cli
 
 # GitHub Copilot
-npx skills add cristianmartinez/product-definition --skill product-definition --agent github-copilot
+npx skills add cristianmartinez/agent-skills --skill product-definition --agent github-copilot
 ```
 
 The [skills CLI](https://github.com/vercel-labs/skills) supports additional Agent Skills clients. Use `--agent '*'` to install for every locally supported agent.
@@ -60,3 +66,23 @@ Don't forget that this must work offline
 ```
 
 The choices are shortcuts, not a restrictive form. Qualifiers, corrections, partial answers, and unsolicited constraints remain part of the product definition.
+
+## Repository layout
+
+```text
+agent-skills/
+├── skills/
+│   └── <skill-name>/
+│       ├── SKILL.md
+│       ├── agents/          # Optional client-specific metadata
+│       ├── references/      # Optional on-demand guidance
+│       ├── scripts/         # Optional deterministic helpers
+│       └── assets/          # Optional output resources
+├── template/
+│   └── SKILL.template.md
+├── CONTRIBUTING.md
+├── LICENSE
+└── README.md
+```
+
+Skills must remain independently installable. Shared repository documentation may explain conventions, but one skill must not require another skill to be installed.

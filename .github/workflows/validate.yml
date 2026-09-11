@@ -1,0 +1,42 @@
+name: Validate skills
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install the Agent Skills reference validator
+        run: >-
+          python -m pip install
+          "git+https://github.com/agentskills/agentskills.git@69ef37e9424c0a7ea9dd2293b559e43ec8176379#subdirectory=skills-ref"
+
+      - name: Validate every authored skill
+        shell: bash
+        run: |
+          set -euo pipefail
+          found=0
+          while IFS= read -r skill_file; do
+            found=1
+            skills-ref validate "$(dirname "$skill_file")"
+          done < <(find skills -mindepth 2 -maxdepth 2 -name SKILL.md -type f | sort)
+          test "$found" -eq 1
+
+      - name: Verify repository discovery
+        run: npx --yes skills@1.5.25 add . --list
