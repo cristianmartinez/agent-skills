@@ -1,0 +1,4 @@
+interface:
+  display_name: "Debug and Fix"
+  short_description: "Find causes and fix bugs efficiently"
+  default_prompt: "Use $debug-and-fix to identify the root cause of this problem, fix it if requested, and verify the exact symptom efficiently."
