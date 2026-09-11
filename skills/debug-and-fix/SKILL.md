@@ -29,6 +29,8 @@ Respect the requested scope:
 - **Diagnose/debug:** establish the cause and supporting evidence; propose a fix without editing.
 - **Fix/resolve/make it work:** diagnose, implement, and verify the fix.
 
+Authorized urgent containment may precede root-cause proof. Verify its effect and retain diagnosis and durable repair as remaining work.
+
 ## 2. Find the tightest signal
 
 Choose the cheapest signal that can distinguish the reported failure from success:
@@ -65,7 +67,7 @@ Discard observations that do not change the next decision. Expand scope only whe
 - Read the smallest complete unit needed to understand behavior.
 - Filter command output at the source; quote only signal-bearing lines.
 - Summarize repeated evidence instead of replaying it.
-- Do not rerun an unchanged command unless repetition tests nondeterminism.
+- Rerun a probe when code or conditions change, or repetition tests nondeterminism; otherwise reuse its result.
 - Prefer one discriminating probe over broad logging.
 - Keep the incident frame and current leading cause, not a transcript of discarded theories.
 - Stop searching when additional evidence is unlikely to change the fix or confidence.
@@ -90,6 +92,8 @@ Classify the problem only after establishing the causal mechanism. Do not infer 
 
 Record the cause class, selected response, and evidence connecting them. Containment is a temporary response, not a cause class.
 
+If the diagnosed cause requires an operational correction rather than code changes, name it directly instead of forcing a code-defect class.
+
 Use these distinctions:
 
 - **Local implementation defect:** The existing ownership and contract are sufficient to enforce the invariant; the implementation violates them. Repair the implementation.
@@ -97,7 +101,7 @@ Use these distinctions:
 - **Architectural defect:** Responsibility, representation, or the necessary primitive is missing or incorrectly placed. Repair the shared design and migrate affected callers rather than adding a symptom-site exception.
 - **Containment:** An urgent, reversible measure restores operation without removing the cause. Label it temporary, state its limitations and removal condition, and do not present it as the completed fix.
 
-Choose the least extensive response that fully prevents the diagnosed failure. Architectural repair requires evidence that implementation or contract changes within the existing owner are insufficient.
+Choose the least extensive durable repair that fully prevents the diagnosed failure. Architectural repair requires evidence that implementation or contract changes within the existing owner are insufficient.
 
 Treat these as architectural signals, not automatic proof:
 
@@ -111,7 +115,7 @@ Treat these as architectural signals, not automatic proof:
 
 Confirm architectural scope with code-path evidence before expanding the change. A one-line symptom can reveal an architectural defect; a broad mechanical migration can still implement a simple, well-contained correction.
 
-Keep urgency separate from solution depth. When immediate containment is necessary, verify it independently and preserve the diagnosed durable repair as explicit remaining work. Do not ask the user to choose “quick” or “proper” before the evidence supports the tradeoff.
+Keep urgency separate from solution depth. Do not ask the user to choose “quick” or “proper” before the evidence supports the tradeoff.
 
 ## 7. Apply the smallest coherent fix
 
@@ -125,13 +129,13 @@ Before editing, identify:
 - The behavior that must remain unchanged
 - The verification that would reject a wrong fix
 
-Remove temporary instrumentation and throwaway artifacts before completion.
+Remove your temporary instrumentation and throwaway artifacts before completion.
 
 ## 8. Verify the outcome
 
-Run the original signal against the original scenario. Then run the smallest relevant regression checks for the affected boundary.
+For implemented fixes, run the original signal against the original scenario. Then run the smallest relevant regression checks for the affected boundary.
 
-Completion requires:
+A durable fix is complete when:
 
 - The original symptom is reproduced or otherwise evidenced before the fix when practicable
 - The causal mechanism is identified with evidence
@@ -139,7 +143,7 @@ Completion requires:
 - The original scenario succeeds after the fix
 - A targeted regression check passes, or the absence of a valid test seam is explained
 - Relevant nearby behavior remains intact
-- Temporary diagnostics are removed
+- Your temporary diagnostics are removed
 
 Broaden validation only when blast radius, uncertainty, or repository rules justify it.
 
@@ -148,8 +152,8 @@ Broaden validation only when blast radius, uncertainty, or repository rules just
 Keep the handoff compact:
 
 ```text
-Class: <local implementation defect, weak boundary, or architectural defect>
-Cause: <causal chain>
+Class: <evidenced cause class, or unresolved>
+Cause: <causal chain, or leading explanation and missing evidence>
 Decision: <why this response depth is appropriate>
 Fix: <what changed, if authorized, including containment versus durable repair>
 Proof: <reproduction and focused validation>
