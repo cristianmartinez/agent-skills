@@ -26,6 +26,22 @@ Infer scope from the repository when practical. If the target could mean materia
 
 A narrow question may need a short assessment. For a broad or durable audit, use [references/architecture-assessment.md](references/architecture-assessment.md).
 
+## Scale and delegate the assessment
+
+Use one agent for a narrow module or one clearly bounded criterion. For a broad, consequential, or cross-system assessment, run independent parallel passes when delegation is available and proportionate:
+
+- **Governance analyst:** Extract governing decisions, rationale, scope, status, and conflicts from product contracts, architecture documents, ADRs, and repository rules. Compare implementation only where needed to identify candidate alignment questions.
+- **As-built cartographer:** Trace representative success and failure paths; map owners, interfaces, dependencies, state, external systems, and operational controls without assuming the documented architecture is current.
+- **Architecture evaluator:** Assess the applicable criteria and systemic pressures from raw code, tests, history, and runtime evidence without seeing the other passes' conclusions.
+
+Give independent passes the same target and scope plus only the raw sources they need. Require confirmed facts, inferences, and unknowns, with evidence → property → consequence chains for evaluative judgments. Keep the passes read-only. Parallelize independent work, not dependent reasoning that needs another pass's result.
+
+Use available worker slots; the coordinator may own a pass and complete remaining work sequentially when delegation is limited or unavailable.
+
+When delegating and model routing is available and compatible with the user's constraints, use fast capable models for bounded source inventory and path tracing, strong reasoning models for criteria evaluation, and the strongest available reasoning model for alignment/drift decisions and final synthesis. A skill cannot silently override a user-selected model or authorize additional cost; use the best available capability when routing is unavailable.
+
+The coordinating agent must inspect the decisive evidence, reconcile contradictions, and synthesize after all passes finish. Do not vote or treat agent consensus as proof. If a conflict remains material, classify it as unresolved and name the cheapest discriminating observation.
+
 ## 2. Establish the governing architecture
 
 Find current product contracts, architecture documents, ADRs, repository instructions, public interfaces, data contracts, deployment topology, and operational constraints. Extract concrete claims about:

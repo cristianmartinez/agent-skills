@@ -26,6 +26,22 @@ Do not require a formal specification or fixed git comparison. If the target cou
 
 Scale the work to the feature. A single validation rule may need a short note; a cross-system workflow may need a durable assessment using [references/feature-assessment.md](references/feature-assessment.md).
 
+## Scale and delegate the assessment
+
+Use one agent for a narrow feature with a short, well-localized path. For a substantial or cross-system feature, use independent parallel passes when the environment supports delegation and the added coverage justifies its cost:
+
+- **Feature cartographer:** Reconstruct the user flow, system flow, state, ownership, and relevant history without judging quality.
+- **Product and lifecycle assessor:** Evaluate product coherence, failure and recovery behavior, data lifecycle, user control, and meaningful limitations.
+- **Engineering assessor:** Evaluate architecture, correctness, resilience, security, performance, operability, testability, and changeability.
+
+Give independent passes the same target, scope, and raw evidence locations, but not prior conclusions or expected findings. Keep every pass read-only. Require confirmed facts, inferences, and unknowns from all passes, and evidence → property → consequence judgments from assessors. Split by lens rather than sending duplicate broad prompts.
+
+Use available worker slots; the coordinator may own a pass and complete remaining work sequentially when delegation is limited or unavailable.
+
+When delegating and model routing is available and compatible with the user's constraints, use fast capable models for bounded discovery and path tracing, strong reasoning models for judgment-heavy lenses, and the strongest available reasoning model for final synthesis. A skill cannot silently override a user-selected model or authorize additional cost; use the best available capability when routing is unavailable.
+
+The coordinating agent must inspect decisive evidence and synthesize after all passes finish. Reconcile contradictions, deduplicate shared observations, and preserve distinct consequences. Do not vote or treat agreement as proof; keep material unresolved conflicts explicit.
+
 ## 2. Discover the feature footprint
 
 Start from observable entry points and trace inward. Search for user-facing labels, routes, commands, events, configuration, public interfaces, persisted data, tests, and documentation associated with the feature.
