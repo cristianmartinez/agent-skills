@@ -9,7 +9,7 @@ A collection of portable Agent Skills for product and software-development work.
 | Skill | Purpose |
 |---|---|
 | [`product-definition`](skills/product-definition/) | Uncover product blind spots through short decision rounds, then synthesize a rigorous Product Definition. |
-| [`debug-and-fix`](skills/debug-and-fix/) | Diagnose failures from a compact incident frame, fix the demonstrated root cause, and verify the exact symptom efficiently. |
+| [`debug-and-fix`](skills/debug-and-fix/) | Diagnose failures, distinguish local defects from architectural problems after finding the cause, apply the right-depth repair, and verify the exact symptom efficiently. |
 
 ## Portable by design
 
