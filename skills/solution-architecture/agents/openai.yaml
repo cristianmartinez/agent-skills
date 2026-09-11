@@ -1,0 +1,4 @@
+interface:
+  display_name: "Solution Architecture"
+  short_description: "Map product intent onto an existing system"
+  default_prompt: "Use $solution-architecture to map this defined product or feature onto the existing system and recommend an evidence-backed technical design."

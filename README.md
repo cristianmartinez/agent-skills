@@ -9,6 +9,7 @@ A collection of portable Agent Skills for product and software-development work.
 | Skill | Purpose |
 |---|---|
 | [`product-definition`](skills/product-definition/) | Uncover product blind spots through short decision rounds, then synthesize a rigorous Product Definition. |
+| [`solution-architecture`](skills/solution-architecture/) | Map a defined product or feature onto an existing system and produce an evidence-backed technical design before planning implementation. |
 | [`debug-and-fix`](skills/debug-and-fix/) | Diagnose failures, distinguish local defects from architectural problems after finding the cause, apply the right-depth repair, and verify the exact symptom efficiently. |
 
 ## Portable by design
@@ -23,6 +24,7 @@ Let the CLI detect or prompt for your agent:
 
 ```bash
 npx skills add cristianmartinez/agent-skills --skill product-definition
+npx skills add cristianmartinez/agent-skills --skill solution-architecture
 npx skills add cristianmartinez/agent-skills --skill debug-and-fix
 ```
 
