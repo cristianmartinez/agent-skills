@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Assessment"
+  short_description: "Assess an existing system against architectural criteria"
+  default_prompt: "Use $architecture-assessment to reconstruct this system architecture, evaluate it against applicable criteria, and identify strengths, drift, systemic risks, and proportionate improvements."
