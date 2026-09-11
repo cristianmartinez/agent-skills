@@ -1,6 +1,7 @@
 ---
 name: product-definition
 description: Explore and shape an early product or feature idea through an interactive, proposition-led interview, then synthesize the decisions into a rigorous Product Definition. Use when the user wants to discover blind spots, define what to build, challenge an idea, or turn “I need to build…” into a product brief before architecture or implementation.
+license: MIT
 ---
 
 # Product Definition
@@ -36,7 +37,7 @@ Use [references/discovery-lenses.md](references/discovery-lenses.md) when the id
 
 ## Work in rounds
 
-Ask four to seven frontier questions per round. Prefer concrete assertions the user can accept or reject. Include:
+Ask up to seven frontier questions per round, usually four to seven when enough consequential decisions are ready. Ask fewer when the frontier is smaller. Prefer concrete assertions the user can accept or reject. Include:
 
 - Core decisions needed to advance the definition
 - At least one applicable blind-spot probe that could materially change the product
@@ -49,7 +50,7 @@ Use the lowest-friction response type that preserves the decision:
 Y / N / ?       Accept, reject, or explore an assertion
 1–5             Choose a position on a named tradeoff
 A / B / C       Select genuinely categorical alternatives
-free text       Only when the user's language or novel input is the product
+free text       Supply facts, constraints, qualifiers, corrections, examples, or novel input
 ```
 
 Format each question as:
@@ -73,7 +74,7 @@ Recommended: **3** — <brief product reasoning>
 Answer: `1–5`
 ```
 
-Tell the user they can answer compactly, for example `1Y 2=4 3N 4?`. Accept prose and partial answers naturally.
+Tell the user they can answer compactly, for example `1Y 2=4 3N 4?`. Accept prose and partial answers naturally. Interpret the whole reply, including qualifiers, corrections, and unsolicited notes such as “don't forget offline mode.” Preserve conditions attached to answers. Explicit corrections supersede earlier decisions and reopen affected branches.
 
 ## Make discovery useful
 
