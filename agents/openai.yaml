@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Definition"
+  short_description: "Discover blind spots and define products"
+  default_prompt: "Use $product-definition to explore what I am not seeing and turn this idea into a rigorous product definition."
