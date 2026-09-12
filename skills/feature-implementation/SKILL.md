@@ -1,6 +1,6 @@
 ---
 name: feature-implementation
-description: Implement an approved product feature in an existing repository through coherent, verified slices while preserving its product contract and architecture decisions. Use when the user asks to build, implement, or complete a defined feature. Do not use for early product exploration, architecture-only or planning-only work, assessment, or isolated bug diagnosis.
+description: Implement an approved product feature in an existing repository through coherent, verified slices with complexity-aware model delegation while preserving its product contract and architecture decisions. Use when the user asks to build, implement, or complete a defined feature. Do not use for early product exploration, architecture-only or planning-only work, assessment, or isolated bug diagnosis.
 license: MIT
 ---
 
@@ -61,9 +61,31 @@ Before each slice, establish:
 - Behavior that must remain unchanged
 - Focused proof that closes the slice
 
-## 4. Delegate without fragmenting the design
+## 4. Classify and reduce task complexity
 
-Keep narrow features on one agent. For substantial work, parallelize independent discovery, implementation, and verification only when the environment supports delegation and the coordination cost is justified.
+Classify each task or slice—not only the feature as a whole—using ambiguity, coupling, blast radius, reversibility, novelty, and verification clarity:
+
+- **Mechanical:** One explicit transformation or lookup, one owner, deterministic proof, and low correction cost.
+- **Bounded:** A stable interface and outcome are known; implementation is local or cleanly isolated, with focused tests.
+- **Integrative:** Several modules or behaviors must agree; sequencing, cross-cutting constraints, or interaction effects require judgment.
+- **Architectural or high-risk:** Ownership, public interfaces, or sources of truth need judgment; or security, concurrency, migration, destructive, or hard-to-reverse effects retain material risk, even with a fully specified plan.
+
+When model routing is available within the user's constraints, place orchestration with the strongest permitted reasoning model. That coordinator reduces complexity before delegation: resolve product meaning and architecture, stabilize shared contracts, divide the work at real seams, and turn each delegable unit into an explicit task packet.
+
+Match capability to the remaining task:
+
+```text
+Mechanical             → fast capable model
+Bounded implementation → capable coding model
+Integrative work        → strong coding/reasoning model with coordinator oversight
+Architectural/high-risk → strongest permitted reasoning model; retain or closely supervise
+```
+
+Use the least costly model that can reliably complete the reduced task, not the weakest model that might succeed. Upgrade the model or return the task to the coordinator when evidence raises its complexity class.
+
+## 5. Delegate with explicit task packets
+
+Keep narrow features as one execution unit, not parallel slices; model-tier routing may still use a brief coordinator-to-worker handoff. For substantial work, parallelize independent discovery, implementation, and verification only when the environment supports delegation and the coordination cost is justified.
 
 The coordinating agent owns the implementation contract, shared interfaces, source-of-truth decisions, migration sequence, ledger, integration, and final verification. Delegate bounded roles:
 
@@ -71,15 +93,31 @@ The coordinating agent owns the implementation contract, shared interfaces, sour
 - **Slice implementer:** Own one coherent slice behind an agreed interface with disjoint code ownership and a focused proof.
 - **Verifier:** Independently exercise acceptance behavior, failure paths, or cross-slice integration without inheriting the implementer's conclusions.
 
-Before delegating an implementation slice, provide its outcome, architectural owner, fixed interface, allowed change surface, invariants, proof command or observable check, and forbidden external actions. Stabilize shared schemas, contracts, and migration rules first.
+Before delegation, provide a compact task packet; combine fields when clear:
+
+```text
+Goal             One observable outcome
+Context          Why the work exists and relevant repository facts
+Technical plan   Decided approach, owner, interfaces, symbols, and sequence
+Scope            Allowed files/modules and explicit exclusions
+Invariants       Behavior and contracts that must remain true
+Proof            Commands or observable acceptance checks
+Deliverable      Expected code, tests, evidence, and concise report
+Escalation       Conditions that invalidate assumptions or raise complexity
+Permissions      Allowed mutations and forbidden external actions
+```
+
+Give a lower-capability model decisions to execute, not architecture to invent. Instructions must be sufficient to act without rediscovering the feature, while leaving local implementation choices open when they cannot affect product meaning or shared design. Stabilize shared schemas, contracts, and migration rules before delegating dependent slices.
+
+A delegate must stop and return evidence when the packet is contradictory, an interface is missing, an invariant cannot be preserved, the allowed surface is insufficient, tests disprove the plan, or the work crosses into a higher complexity class. The coordinator then revises, reclassifies, or reassigns the task instead of asking the delegate to improvise beyond its authority.
 
 Prefer isolated worktrees or equivalent environments for concurrent edits. In a shared checkout, assign non-overlapping modules and serialize changes to shared files. Never give multiple agents ownership of the same interface, migration, generated artifact, or integration point.
 
 Work in dependency waves. Wait for prerequisites, inspect returned changes and evidence, integrate them, and re-establish a green baseline before starting dependent slices. Agent summaries and consensus are not proof; the coordinator must inspect decisive diffs and rerun integration signals.
 
-When delegating and model routing is available within the user's constraints, use fast capable models for bounded discovery, strong coding models for isolated implementation, and the strongest available reasoning model for architectural drift, high-risk changes, integration decisions, and final synthesis. Do not silently override a user-selected model or authorize additional cost. Without routing, use the current permitted model; without delegation, perform the roles locally. Limit concurrency to available workers.
+Do not silently override a user-selected model or authorize additional cost. Without routing, use the current permitted model; without delegation, perform the roles locally. Limit concurrency to available workers.
 
-## 5. Implement and prove each slice
+## 6. Implement and prove each slice
 
 For each slice:
 
@@ -92,7 +130,7 @@ For each slice:
 
 Keep feedback tight: search before broad reading, run focused checks before full suites, and summarize repeated output. Token and tool efficiency must not replace integration or verification.
 
-## 6. Handle design drift explicitly
+## 7. Handle design drift explicitly
 
 Classify new evidence before continuing:
 
@@ -104,7 +142,7 @@ Classify new evidence before continuing:
 
 Fit the implementation to current evidence, not a stale plan. Preserve approved product meaning unless the user changes it.
 
-## 7. Close integration gaps
+## 8. Close integration gaps
 
 Trace every outcome through its full path and check applicable concerns:
 
@@ -117,7 +155,7 @@ Trace every outcome through its full path and check applicable concerns:
 
 Apply relevant checks to find missing integration, not to expand the product definition.
 
-## 8. Verify at increasing scope
+## 9. Verify at increasing scope
 
 Run checks in the cheapest order that isolates failures:
 

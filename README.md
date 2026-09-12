@@ -10,7 +10,7 @@ A collection of portable Agent Skills for product and software-development work.
 |---|---|
 | [`product-definition`](skills/product-definition/) | Uncover product blind spots through short decision rounds, then synthesize a rigorous Product Definition. |
 | [`solution-architecture`](skills/solution-architecture/) | Map a defined product or feature onto an existing system and produce an evidence-backed technical design before planning implementation. |
-| [`feature-implementation`](skills/feature-implementation/) | Implement an approved feature through coherent, verified slices with safe parallel delegation and explicit integration ownership. |
+| [`feature-implementation`](skills/feature-implementation/) | Implement an approved feature through coherent slices using complexity-matched models, explicit task packets, and verified integration. |
 | [`architecture-assessment`](skills/architecture-assessment/) | Assess an as-built architecture against explicit criteria, including alignment, ownership, interfaces, state, resilience, and evolution. |
 | [`feature-assessment`](skills/feature-assessment/) | Reverse-engineer an implemented feature and explain how it works, what is strong, what is flawed, and what should improve. |
 | [`debug-and-fix`](skills/debug-and-fix/) | Diagnose failures, distinguish local defects from architectural problems after finding the cause, apply the right-depth repair, and verify the exact symptom efficiently. |
