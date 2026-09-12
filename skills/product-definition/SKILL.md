@@ -8,7 +8,7 @@ license: MIT
 
 Turn an initial product idea into a decision-complete Product Definition. The conversation is the primary work: reveal consequential possibilities the user has not considered, make tradeoffs easy to answer, and preserve the user's judgment.
 
-Do not design the technical architecture or begin implementation during this skill unless the user explicitly expands the request after approving the Product Definition.
+Do not design the technical architecture or begin implementation within this phase. After definition approval, continue only when the user's requested scope already includes the next phase or the user explicitly expands it.
 
 ## Opening
 
@@ -89,10 +89,10 @@ Do not hide the interesting option inside a generic question. Propose it explici
 
 Probe second-order effects. Ask what changes when usage becomes frequent, collaborative, adversarial, regulated, slow, interrupted, or successful at much larger scale—but only where plausible.
 
-Maintain a private decision ledger after every answer:
+Maintain a decision ledger after every answer. It may stay compact during the interview, but its decisions and provenance must survive into downstream phases:
 
 ```text
-confirmed | rejected | unresolved | inferred
+confirmed | rejected | unresolved | inferred | superseded
 ```
 
 Track contradictions and dependencies. Recompute the frontier after each round instead of following a fixed script.
@@ -119,7 +119,7 @@ Present the draft for correction. The session completes only when:
 
 - The user confirms the definition reflects their intent
 - Every material decision is resolved or explicitly deferred with consequence
-- Version one, non-goals, and success signals are clear
+- Target persona, desired outcomes, core use cases, version one, non-goals, acceptance criteria, and success signals are clear
 - No important requirement depends on a silent assumption
 
-After confirmation, offer architecture mapping or execution planning as a separate next step. Do not let implementation details retroactively masquerade as product requirements.
+After confirmation, provide a definition handoff containing the approved outcomes, use cases, acceptance criteria, constraints, non-goals, unresolved decisions, and decision provenance. Offer solution architecture as the next phase. Do not let implementation details retroactively masquerade as product requirements.

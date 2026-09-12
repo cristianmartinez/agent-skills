@@ -28,6 +28,9 @@ Synthesize the approved decisions into a concise product source of truth. Adapt 
 **Success:** <observable end state>
 **Failure/recovery:** <expected behavior>
 
+## Acceptance criteria
+- AC-01 [user]: Given <context>, when <action>, then <observable outcome>.
+
 ## Version one
 ### Must
 - R-01 [user]: <observable capability>
@@ -75,6 +78,7 @@ Synthesize the approved decisions into a concise product source of truth. Adapt 
 Before presenting the draft, verify:
 
 - Each Must requirement supports a core use case.
+- Each core use case has observable acceptance criteria.
 - Each use case supports the product thesis.
 - Non-goals prevent at least the most likely scope drift.
 - Trust, failure, and recovery behavior match the product's actual power.

@@ -8,8 +8,10 @@ A collection of portable Agent Skills for product and software-development work.
 
 | Skill | Purpose |
 |---|---|
+| [`feature`](skills/feature/) | Orchestrate the complete Define → Architect → Plan → Implement lifecycle while preserving decisions and resuming from stale or incomplete gates. |
 | [`product-definition`](skills/product-definition/) | Uncover product blind spots through short decision rounds, then synthesize a rigorous Product Definition. |
 | [`solution-architecture`](skills/solution-architecture/) | Map a defined product or feature onto an existing system and produce an evidence-backed technical design before planning implementation. |
+| [`feature-planning`](skills/feature-planning/) | Turn approved definition and architecture decisions into dependency-aware slices, model-routed task packets, and verification gates. |
 | [`feature-implementation`](skills/feature-implementation/) | Implement an approved feature through coherent slices using complexity-matched models, explicit task packets, and verified integration. |
 | [`architecture-assessment`](skills/architecture-assessment/) | Assess an as-built architecture against explicit criteria, including alignment, ownership, interfaces, state, resilience, and evolution. |
 | [`feature-assessment`](skills/feature-assessment/) | Reverse-engineer an implemented feature and explain how it works, what is strong, what is flawed, and what should improve. |
@@ -23,11 +25,26 @@ Some skills include `agents/openai.yaml` for optional Codex interface metadata. 
 
 ## Install
 
-Let the CLI detect or prompt for your agent:
+Install the complete feature lifecycle:
 
 ```bash
+npx skills add cristianmartinez/agent-skills \
+  --skill feature \
+  --skill product-definition \
+  --skill solution-architecture \
+  --skill feature-planning \
+  --skill feature-implementation
+```
+
+The four phase skills remain independently useful. The `feature` skill is deliberately a thin orchestrator and needs those companions for full-fidelity end-to-end execution.
+
+Install an individual skill and let the CLI detect or prompt for your agent:
+
+```bash
+npx skills add cristianmartinez/agent-skills --skill feature
 npx skills add cristianmartinez/agent-skills --skill product-definition
 npx skills add cristianmartinez/agent-skills --skill solution-architecture
+npx skills add cristianmartinez/agent-skills --skill feature-planning
 npx skills add cristianmartinez/agent-skills --skill feature-implementation
 npx skills add cristianmartinez/agent-skills --skill architecture-assessment
 npx skills add cristianmartinez/agent-skills --skill feature-assessment
@@ -95,4 +112,4 @@ agent-skills/
 └── README.md
 ```
 
-Skills must remain independently installable. Shared repository documentation may explain conventions, but one skill must not require another skill to be installed.
+Phase and assessment skills must remain independently installable. An umbrella skill may compose explicitly named companion skills when it detects and reports missing companions instead of silently degrading or duplicating their instructions.

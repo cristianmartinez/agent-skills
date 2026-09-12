@@ -8,7 +8,7 @@ license: MIT
 
 Turn approved product intent into a technical design grounded in the system that must support it. Decide what owns the behavior, which interfaces and invariants change, what can be reused, and what must be proven before implementation.
 
-The output is an architecture decision, not an implementation plan. Stop before task decomposition or code changes unless the user explicitly starts a separate phase.
+The output is an architecture decision, not an implementation plan. Do not decompose tasks or change code within this phase. After architectural confirmation, continue only when the user's requested scope includes the next phase.
 
 ## 1. Establish the feature contract
 
@@ -43,7 +43,30 @@ For a greenfield system, replace repository evidence with confirmed platform, te
 
 This step is complete when the current owner, source of truth, relevant interfaces, and failure behavior are known—or specifically recorded as missing.
 
-## 3. Map product concepts to technical ownership
+For substantial or cross-cutting work, use delegation strategically when the environment supports it. When routing is supported and authorized, the strongest permitted reasoning model coordinates the feature contract, ownership decisions, and synthesis. Independent bounded roles may trace the current flow, inventory reusable primitives and callers, or challenge failure, migration, and operational assumptions. Parallelize only disjoint read-only discovery; do not use agent consensus as architectural evidence. Without routing, use the current permitted model for these roles. For narrow work or environments without delegation, perform them locally.
+
+## 3. Resolve the architecture decision frontier
+
+After gathering repository evidence, expose only the consequential decisions that remain. Do not make the user answer repository facts the agent can determine. Ask for judgments that change ownership, contracts, risk posture, compatibility, or long-term cost.
+
+Work in short proposition-led rounds. Each question must include the evidence, a concrete recommendation, its consequence, and the lowest-friction answer form that preserves the decision:
+
+```text
+Y / N / ?       Accept, reject, or explore a recommendation
+A / B / C       Choose genuinely categorical designs
+1–5             Choose a position on a named tradeoff
+free text       Add constraints, corrections, examples, or alternatives
+```
+
+Accept compact answers, prose, partial answers, and notes such as “do not forget offline recovery.” Maintain an architecture decision ledger:
+
+```text
+confirmed | rejected | unresolved | inferred | superseded
+```
+
+When an answer corrects the product definition, mark affected architecture branches stale and return the correction to the definition contract before continuing. When the user answers `?`, explain the viable options and recommend one. Proceed on a reversible inference only when uncertainty, consequence, correction cost, and propagation breadth are low.
+
+## 4. Map product concepts to technical ownership
 
 For every material product concept or operation, identify:
 
@@ -60,7 +83,7 @@ Expose ownership gaps, duplicated truth, caller-enforced conventions, circular k
 
 This step is complete when every in-scope outcome has an owner and a traceable path through the system.
 
-## 4. Decide what changes
+## 5. Decide what changes
 
 Classify each required capability:
 
@@ -74,7 +97,7 @@ Prefer the least extensive design that fully supports the feature contract. Avoi
 
 Architecture is not a directory inventory. Describe responsibilities, interfaces, invariants, and flows before suggesting file placement.
 
-## 5. Compare real options
+## 6. Compare real options
 
 Generate alternatives only when a consequential decision is genuinely open. Compare two or three viable approaches using the same criteria:
 
@@ -91,7 +114,7 @@ Reject an option with a concrete reason. Do not include a knowingly weak alterna
 
 Recommend one direction. State which evidence supports it, which tradeoff it accepts, and what new information would reverse the decision.
 
-## 6. Convert uncertainty into proofs
+## 7. Convert uncertainty into proofs
 
 For each material unknown, define the cheapest observation that can resolve it before or during implementation:
 
@@ -105,7 +128,7 @@ For each material unknown, define the cheapest observation that can resolve it b
 
 Risks must be falsifiable. “May be slow” is not actionable; name the workload, threshold, and measurement that would change the design.
 
-## 7. Produce the architecture decision
+## 8. Produce the architecture decision
 
 For substantial work, use [references/architecture-decision.md](references/architecture-decision.md). For a narrow change, compress the same reasoning into a short design note.
 
@@ -118,5 +141,6 @@ The design is ready for execution planning when:
 - Failure, recovery, compatibility, migration, and operational behavior are addressed where relevant
 - Material uncertainty has a proof checkpoint or an explicit deferral consequence
 - The recommendation preserves the product contract without relying on a hidden fallback or duplicate implementation
+- The user has confirmed consequential architectural judgments, or each unresolved judgment is explicitly deferred with its consequence
 
-End with an execution handoff containing architectural sequence and gates, not a file-by-file task list. Keep unresolved product decisions separate from technical unknowns.
+Use the strongest permitted reasoning capability for final synthesis. A skill cannot silently change the user's selected model or authorize extra cost. End with a planning handoff containing architectural sequence, interfaces, invariants, proof gates, migration constraints, unresolved decisions, and decision status, provenance, and dependencies—not a file-by-file task list. Reference an existing lifecycle ledger rather than maintaining a conflicting copy. Keep unresolved product decisions separate from technical unknowns.

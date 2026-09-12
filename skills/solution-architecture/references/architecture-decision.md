@@ -16,6 +16,13 @@ Status: proposed
 - **Constraints:**
 - **Non-goals:**
 
+## Decision Ledger
+
+Reference the lifecycle ledger when one exists; otherwise preserve the relevant decisions here.
+
+| Decision | Status | Provenance | Depends on / affects |
+| --- | --- | --- | --- |
+
 ## Evidence and Current System
 
 | Source | Confirmed fact | Relevance |

@@ -11,7 +11,7 @@ skills/<skill-name>/
 └── SKILL.md
 ```
 
-Add `references/`, `scripts/`, `assets/`, or client-specific metadata only when the skill needs them. Keep each skill self-contained so users can install it independently.
+Add `references/`, `scripts/`, `assets/`, or client-specific metadata only when the skill needs them. Keep leaf skills self-contained so users can install them independently. A thin umbrella skill may compose explicitly named companion skills, but it must document the full bundle, detect unavailable companions, and stop at the affected phase boundary rather than silently duplicating or weakening their workflow.
 
 Before submitting a change:
 

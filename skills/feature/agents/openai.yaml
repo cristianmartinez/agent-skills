@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feature Lifecycle"
+  short_description: "Guide a feature from definition to delivery"
+  default_prompt: "Use $feature to guide this idea through definition, architecture, planning, and implementation without losing decisions between phases."
