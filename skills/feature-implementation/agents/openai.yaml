@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feature Implementation"
+  short_description: "Implement approved features in coherent verified slices"
+  default_prompt: "Use $feature-implementation to implement this approved feature in coherent, verified slices while preserving its product contract and architecture."
