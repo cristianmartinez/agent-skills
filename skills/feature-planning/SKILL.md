@@ -1,6 +1,6 @@
 ---
 name: feature-planning
-description: Turn an approved product definition and solution architecture into an executable delivery plan through a short, proposition-led planning session, dependency-aware slices, explicit task packets, complexity classification, model routing, and verification gates. Use after feature definition and architecture, before implementation. Do not use for product discovery, architecture design, code changes, or post-build assessment.
+description: Turn an approved feature definition and solution architecture into an executable, dependency-aware delivery plan. Use after product and architecture decisions are settled to plan slices, task packets, model routing, rollout, and verification; produces planning rather than code changes or post-build assessment.
 license: MIT
 ---
 
@@ -21,7 +21,7 @@ Constraints   Repository rules, compatibility, security, performance, delivery l
 Unknowns      Deferred decisions and technical proofs, each with consequence
 ```
 
-Inspect the repository only enough to verify current paths, build/test entry points, dependency boundaries, and whether architecture assumptions remain true. Do not ask the user to repeat available information.
+Inspect the repository only enough to verify current paths, build/test entry points, dependency boundaries, and whether architecture assumptions remain true. Derive available facts directly and reserve user questions for missing judgments.
 
 ## 2. Resolve the planning frontier
 
@@ -36,7 +36,7 @@ Derive factual sequencing from repository and architecture evidence. Ask only co
 - Model, cost, latency, or execution-environment constraints
 - Stop conditions when proofs contradict the design
 
-Work in short proposition-led rounds. Give evidence, a recommendation, and the consequence, then accept `Y / N / ?`, `A / B / C`, `1–5`, free text, or any mixture. Preserve qualifiers, corrections, and unsolicited constraints. Do not ask questions whose answers can be inferred safely from the approved contracts or repository.
+Work in short proposition-led rounds. Give evidence, a recommendation, and the consequence, then accept `Y / N / ?`, `A / B / C`, `1–5`, free text, or any mixture. Preserve qualifiers, corrections, and unsolicited constraints. Ask only for decisions that cannot be inferred safely from approved contracts or repository evidence.
 
 Maintain a planning decision ledger:
 
@@ -44,11 +44,11 @@ Maintain a planning decision ledger:
 confirmed | rejected | unresolved | inferred | superseded
 ```
 
-If a correction changes product meaning or architecture ownership, mark affected planning branches stale and return it to that phase. Do not locally patch an upstream contradiction.
+If a correction changes product meaning or architecture ownership, mark affected planning branches stale and return the contradiction to its owning phase.
 
 ## 3. Plan coherent slices
 
-Define vertical or otherwise independently provable slices. Each slice must close an observable behavior or a named technical proof; avoid layers of disconnected scaffolding.
+Define vertical or otherwise independently provable slices. Each slice must close an observable behavior or a named technical proof, producing integrated behavior instead of disconnected scaffolding.
 
 For each slice, specify:
 
@@ -61,51 +61,13 @@ For each slice, specify:
 
 Order slices by dependency and learning value. Put design-disproving proofs early. For contract or data changes, explicitly plan sequences such as expand → migrate → switch → contract and name the deletion condition for temporary paths.
 
-## 4. Classify complexity and route capability
+## 4. Design executable work
 
-Classify every task using ambiguity, coupling, blast radius, reversibility, novelty, and verification clarity:
+Classify each task as **mechanical**, **bounded**, **integrative**, or **architectural/high-risk** using ambiguity, coupling, blast radius, reversibility, novelty, and verification clarity. Every executable unit needs an explicit task packet, even when one agent owns the whole plan.
 
-```text
-Mechanical              One explicit transformation; deterministic proof; low correction cost
-Bounded                 Stable interface and local change; focused verification
-Integrative             Multiple modules or behaviors must agree; sequencing requires judgment
-Architectural/high-risk Ownership, public contract, security, concurrency, migration, or hard reversal
-```
+For a substantial plan, a multi-agent request, or an environment where model routing or parallel execution is being considered, read [references/execution-design.md](references/execution-design.md). Keep shared interfaces, migrations, and integration under one coordinator.
 
-When model routing is supported and authorized, the strongest permitted reasoning model owns decomposition, shared contracts, dependency ordering, risk decisions, and final synthesis. Route reduced work to the least costly model that can reliably perform it:
-
-```text
-Mechanical              → fast capable model
-Bounded                 → capable coding model
-Integrative             → strong coding/reasoning model with coordinator oversight
-Architectural/high-risk → strongest permitted reasoning model; retain or closely supervise
-```
-
-Do not silently override the user's model or cost constraints. Without routing, retain complexity classes but assign work to the current permitted model. Upgrade or retain a task when its remaining ambiguity or risk exceeds the assigned tier.
-
-## 5. Design safe delegation
-
-Use parallel work only for independent tasks with stable interfaces and disjoint ownership. Shared schemas, public contracts, migrations, generated artifacts, and integration points have one coordinator. Arrange work into dependency waves, with an integration gate between waves.
-
-For substantial plans, delegation may independently analyze the dependency graph, verification strategy, and migration/rollout risks. The coordinator must reconcile these views against evidence; consensus is not proof. For narrow plans or environments without delegation, perform the roles locally.
-
-Write every executable unit as a task packet:
-
-```text
-Goal             One observable outcome
-Context          Approved decisions and relevant repository facts
-Technical plan   Owner, interfaces, symbols, sequence, and decided approach
-Scope            Allowed modules/files and explicit exclusions
-Invariants       Behavior and contracts that must remain true
-Proof            Focused and integration checks
-Deliverable      Expected code, tests, evidence, and report
-Escalation       Evidence that invalidates assumptions or raises complexity
-Permissions      Allowed mutations and forbidden external actions
-```
-
-Give lower-capability models decisions to execute, not architecture to invent.
-
-## 6. Produce the feature plan
+## 5. Produce the feature plan
 
 Read [references/feature-plan.md](references/feature-plan.md) and adapt it to the feature. Use the strongest permitted reasoning capability for synthesis.
 

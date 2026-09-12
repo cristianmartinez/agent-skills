@@ -8,7 +8,7 @@ license: MIT
 
 Turn approved product intent into a technical design grounded in the system that must support it. Decide what owns the behavior, which interfaces and invariants change, what can be reused, and what must be proven before implementation.
 
-The output is an architecture decision, not an implementation plan. Do not decompose tasks or change code within this phase. After architectural confirmation, continue only when the user's requested scope includes the next phase.
+Finish this phase with an architecture decision. Task decomposition and code changes belong to downstream phases, which continue only when the user's requested scope includes them.
 
 ## 1. Establish the feature contract
 
@@ -47,7 +47,7 @@ For substantial or cross-cutting work, use delegation strategically when the env
 
 ## 3. Resolve the architecture decision frontier
 
-After gathering repository evidence, expose only the consequential decisions that remain. Do not make the user answer repository facts the agent can determine. Ask for judgments that change ownership, contracts, risk posture, compatibility, or long-term cost.
+After gathering repository evidence, expose only the consequential decisions that remain. Determine repository facts directly and ask the user for judgments that change ownership, contracts, risk posture, compatibility, or long-term cost.
 
 Work in short proposition-led rounds. Each question must include the evidence, a concrete recommendation, its consequence, and the lowest-friction answer form that preserves the decision:
 

@@ -1,6 +1,6 @@
 ---
 name: architecture-assessment
-description: Reconstruct and assess the as-built architecture of a software feature, module, or system against explicit criteria, including alignment, ownership, interfaces, dependencies, state, resilience, operability, testability, and evolution. Use when the user asks whether an existing architecture is sound, aligned, scalable, maintainable, or structurally flawed. This is a read-only architecture assessment, not code review, solution design, or implementation.
+description: Assess an existing system's as-built architecture against its purpose and governing decisions. Use for architecture health, alignment, scalability, maintainability, systemic risk, or structural flaws; produces a read-only assessment rather than code review or implementation.
 license: MIT
 ---
 
@@ -26,21 +26,7 @@ Infer scope from the repository when practical. If the target could mean materia
 
 A narrow question may need a short assessment. For a broad or durable audit, use [references/architecture-assessment.md](references/architecture-assessment.md).
 
-## Scale and delegate the assessment
-
-Use one agent for a narrow module or one clearly bounded criterion. For a broad, consequential, or cross-system assessment, run independent parallel passes when delegation is available and proportionate:
-
-- **Governance analyst:** Extract governing decisions, rationale, scope, status, and conflicts from product contracts, architecture documents, ADRs, and repository rules. Compare implementation only where needed to identify candidate alignment questions.
-- **As-built cartographer:** Trace representative success and failure paths; map owners, interfaces, dependencies, state, external systems, and operational controls without assuming the documented architecture is current.
-- **Architecture evaluator:** Assess the applicable criteria and systemic pressures from raw code, tests, history, and runtime evidence without seeing the other passes' conclusions.
-
-Give independent passes the same target and scope plus only the raw sources they need. Require confirmed facts, inferences, and unknowns, with evidence → property → consequence chains for evaluative judgments. Keep the passes read-only. Parallelize independent work, not dependent reasoning that needs another pass's result.
-
-Use available worker slots; the coordinator may own a pass and complete remaining work sequentially when delegation is limited or unavailable.
-
-When delegating and model routing is available and compatible with the user's constraints, use fast capable models for bounded source inventory and path tracing, strong reasoning models for criteria evaluation, and the strongest available reasoning model for alignment/drift decisions and final synthesis. A skill cannot silently override a user-selected model or authorize additional cost; use the best available capability when routing is unavailable.
-
-The coordinating agent must inspect the decisive evidence, reconcile contradictions, and synthesize after all passes finish. Do not vote or treat agent consensus as proof. If a conflict remains material, classify it as unresolved and name the cheapest discriminating observation.
+Scale the assessment to its surface. Handle a narrow module or one bounded criterion locally. For a broad, consequential, cross-system, multi-agent, or model-routed assessment, read [references/parallel-assessment.md](references/parallel-assessment.md) before dispatching work.
 
 ## 2. Establish the governing architecture
 
@@ -80,36 +66,7 @@ This step is complete when the important outcomes and invariants can be traced t
 
 ## 4. Evaluate the criteria
 
-Apply each relevant criterion and mark non-applicable ones explicitly for a full audit:
-
-- **Purpose fit:** The architecture supports the current product and operational outcomes without accidental constraints or unused generality.
-- **Architecture alignment:** As-built responsibilities, interfaces, dependencies, and sources of truth agree with governing decisions—or diverge for an evidenced reason.
-- **Ownership and locality:** Every material invariant and state transition has one clear owner; related change and diagnosis remain concentrated.
-- **Interface depth:** Callers receive useful capability without learning implementation detail, coordinating hidden protocols, or duplicating policy.
-- **Dependency integrity:** Dependency direction follows responsibility; cycles, reach-through, and cross-layer guesses do not distribute knowledge.
-- **State and data integrity:** Identity, authority, persistence, consistency, retention, migration, and deletion form one coherent lifecycle.
-- **Resilience:** Failure, timeout, retry, concurrency, cancellation, degradation, and recovery preserve defined invariants.
-- **Security and privacy:** Trust boundaries, authorization, validation, secrets, sensitive data, and abuse controls live with the responsible owner.
-- **Performance and scale:** Cost, latency, fan-out, contention, allocation, and growth are bounded for representative workloads.
-- **Operability:** The system can be observed, diagnosed, contained, rolled out, rolled back, and recovered by a clear owner.
-- **Testability:** Important behavior is provable through stable interfaces, including failure and migration paths.
-- **Evolvability:** Expected changes can be made locally; temporary compatibility mechanisms and paths have explicit retirement conditions.
-
-For each judgment, show:
-
-```text
-evidence → architectural property → present consequence or future pressure
-```
-
-Use qualitative ratings:
-
-- **Strong:** Evidence shows the criterion creates leverage or prevents failure.
-- **Adequate:** It fits current needs with bounded, understood tradeoffs.
-- **Concern:** Evidence shows recurring friction or a credible risk under named conditions.
-- **Critical:** The shape already causes serious harm or blocks required outcomes.
-- **Unknown:** Evidence is insufficient; name the cheapest discriminating observation.
-
-Avoid a numeric aggregate score: one critical source-of-truth flaw can matter more than many strong criteria.
+Read [references/assessment-criteria.md](references/assessment-criteria.md). Apply only criteria that bear on a narrow question; for a broad audit, account for every criterion and mark non-applicable ones. Tie each judgment to evidence → architectural property → consequence and use qualitative ratings rather than an aggregate score.
 
 ## 5. Classify alignment and drift
 
@@ -125,7 +82,7 @@ Neither documentation nor code wins automatically. Recommend the correct reconci
 
 ## 6. Find systemic causes
 
-Cluster related observations around violated architectural properties. Do not produce a bag of local code smells.
+Cluster related observations around violated architectural properties so the result explains systemic causes rather than listing local code smells.
 
 Distinguish:
 

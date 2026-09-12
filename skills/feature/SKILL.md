@@ -1,6 +1,6 @@
 ---
 name: feature
-description: Orchestrate a software feature across definition, solution architecture, planning, and implementation while preserving decisions, asking proposition-led questions at the right phase, routing work by complexity, and resuming from the first incomplete or stale gate. Use when the user wants end-to-end feature development or explicitly invokes the feature lifecycle. Requires the companion skills product-definition, solution-architecture, feature-planning, and feature-implementation for full-fidelity execution.
+description: Orchestrate a feature through definition, solution architecture, planning, and implementation while preserving decisions and resuming stale work. Use for an explicitly end-to-end feature request or when the user invokes the full feature lifecycle; composes product-definition, solution-architecture, feature-planning, and feature-implementation.
 license: MIT
 ---
 
@@ -12,7 +12,7 @@ Guide one feature through:
 Define → Architect → Plan → Implement
 ```
 
-This is a thin coordinator, not a duplicate mega-prompt. Use the installed companion skills as the phase authorities, reading each companion only when its phase is active:
+The coordinator owns cross-phase state and sequencing; installed companions own the phase workflows. Read each companion only while its phase is active:
 
 ```text
 Define      product-definition
@@ -21,7 +21,7 @@ Plan        feature-planning
 Implement   feature-implementation
 ```
 
-If a required companion is unavailable, identify the missing skill and stop at that boundary. Do not imitate a missing phase from memory or install external content without authorization.
+If a required companion is unavailable, identify it and stop at that boundary. External installation requires user authorization.
 
 ## 1. Establish terminal scope
 
@@ -32,7 +32,7 @@ Infer the requested stopping point from the user's words:
 - “Plan” ends after Planning.
 - “Build,” “implement,” “complete,” or an explicit end-to-end request includes Implementation.
 
-Ask only when the intended stopping point materially changes whether repository mutations are authorized. Never treat a request to understand or plan as authorization to edit code.
+Ask only when the intended stopping point materially changes whether repository mutations are authorized. Repository edits require an implementation-scoped request.
 
 ## 2. Create the feature ledger
 
@@ -49,50 +49,28 @@ The ledger prevents repeated questions and silent reinterpretation. Accept compa
 
 ## 3. Resume instead of restarting
 
-Inspect available conversation artifacts and repository evidence. Start at the first phase that is incomplete or whose inputs are stale. Do not rerun a completed phase merely because its document format differs.
+Inspect available conversation artifacts and repository evidence. Start at the first phase that is incomplete or whose inputs are stale. Preserve a completed phase when its decisions remain valid, regardless of document format.
 
 A correction to an upstream decision supersedes the old entry. Mark only dependent downstream decisions, artifacts, tasks, or implementation slices stale; reopen those branches and preserve unaffected work.
 
-## 4. Run phase authorities and gates
+## 4. Run one phase authority at a time
 
-### Definition gate
+| Phase | Authority | Gate |
+| --- | --- | --- |
+| Define | `product-definition` | Its Product Definition completion criteria pass |
+| Architect | `solution-architecture` | Its architecture decision completion criteria pass |
+| Plan | `feature-planning` | Its executable plan completion criteria pass |
+| Implement | `feature-implementation` | Its delivery completion criteria pass |
 
-Use `product-definition`. The gate requires confirmed persona, desired outcomes, use cases, acceptance criteria, first slice, non-goals, trust boundaries, success signals, and explicit deferrals.
+Load only the active companion and the references that companion selects. The phase authority owns its research, question strategy, complexity routing, delegation, artifact, and completion criteria; the umbrella owns ordering, lifecycle scope, and cross-phase state.
 
-### Architecture gate
+At each gate, reconcile the companion's output into the lifecycle ledger. Resolve consequential decisions or defer them with a consequence and forcing event. A confirmed gate advances within the already authorized terminal scope without repeating the authorization question; it never broadens that scope. Run Implementation only when the terminal scope authorizes repository changes.
 
-Use `solution-architecture`. Research the repository before asking architectural questions. The gate requires owners, interfaces, invariants, sources of truth, flows, affected-path disposition, failure and migration behavior, proof checkpoints, and explicit deferrals.
+Definition, Architecture, and Planning remain proposition-led decision sessions. Accept compact choices, prose, qualifiers, corrections, and unsolicited constraints. Implementation acts within the approved contracts and reopens an upstream phase when evidence changes product meaning, architecture, scope, risk, permissions, or external effects.
 
-### Planning gate
+When routing or delegation is supported and authorized, let each phase authority apply its own complexity rules. The lifecycle coordinator retains the ledger, phase gates, shared decisions, and contradiction resolution. Otherwise use the current permitted model and perform unavailable roles locally.
 
-Use `feature-planning`. The gate requires coherent slices, dependency waves, single ownership of shared interfaces, complexity and model tiers, executable task packets, integration proofs, rollout/reversal gates, and acceptance coverage.
-
-### Implementation gate
-
-Use `feature-implementation` only when the terminal scope authorizes repository changes. The gate requires all in-scope outcomes demonstrated, cross-slice integration verified, repository checks satisfied in proportion to risk, and residual uncertainty reported precisely.
-
-At each gate, reconcile the companion's output into the lifecycle ledger. Do not silently proceed past unresolved consequential decisions. Explicit deferral is allowed only when its consequence and forcing event are recorded. Once the gate is confirmed, continue to the next phase within the already authorized terminal scope; do not request the same authorization again. Gate approval does not broaden that scope.
-
-## 5. Keep questions at the right layer
-
-The lifecycle is questionnaire-led, not questionnaire-heavy:
-
-- Definition asks about people, value, behavior, scope, trust, and success.
-- Architecture determines repository facts itself, then asks only consequential ownership or tradeoff judgments.
-- Planning determines dependencies itself, then asks only delivery, rollout, reversibility, verification, parallelism, and resource preferences.
-- Implementation acts autonomously within the approved contracts and asks only when evidence changes product meaning, architecture, scope, risk, permissions, or external effects.
-
-Every question must advance a decision frontier. Prefer a concrete recommendation with `Y / N / ?`, `A / B / C`, or a named `1–5` tradeoff; always accept richer prose. Never force the user's insight into the shortcut format.
-
-## 6. Orchestrate models and delegation strategically
-
-When routing is supported and authorized, the strongest permitted reasoning model owns lifecycle state, phase gates, decomposition, shared contracts, contradiction resolution, and final synthesis. Companion skills may route bounded work to capability tiers appropriate to remaining complexity.
-
-Parallelize only independent work with stable boundaries. Do not assign multiple agents the same interface, source of truth, migration, or integration point. Lower-capability models receive explicit goals, technical decisions, scope, invariants, proof, deliverables, escalation conditions, and permissions. They escalate when evidence raises complexity instead of inventing architecture.
-
-Do not silently change the user's selected model, increase cost, or assume delegation exists. Without routing, use the current permitted model, including for available subagents; without subagents, perform the roles locally.
-
-## 7. Close the lifecycle
+## 5. Close the lifecycle
 
 At the requested stopping point, report:
 
@@ -105,4 +83,4 @@ Residual      Stale branches, risks, missing permissions, or none known
 Next gate     The next phase, or completion
 ```
 
-Do not claim lifecycle completion when only documents exist for an implementation-authorized request. Do not deploy, publish, merge, commit, or mutate external systems unless the user requested or separately authorized that action.
+For an implementation-scoped request, lifecycle completion requires delivered behavior rather than documents alone. Deployment, publication, merging, commits, and external mutations require explicit request or separate authorization.

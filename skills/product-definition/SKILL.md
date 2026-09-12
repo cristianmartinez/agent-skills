@@ -8,11 +8,11 @@ license: MIT
 
 Turn an initial product idea into a decision-complete Product Definition. The conversation is the primary work: reveal consequential possibilities the user has not considered, make tradeoffs easy to answer, and preserve the user's judgment.
 
-Do not design the technical architecture or begin implementation within this phase. After definition approval, continue only when the user's requested scope already includes the next phase or the user explicitly expands it.
+Keep this phase on product meaning and behavior. After definition approval, continue into architecture only when the user's requested scope already includes it or the user explicitly expands the request.
 
 ## Opening
 
-Restate the idea in one or two sentences, including the outcome you currently infer. Label it provisional. Then begin the first discovery round; do not front-load a questionnaire or ask the user to explain everything.
+Restate the idea in one or two sentences, including the outcome you currently infer. Label it provisional. Then begin with a small first discovery round built from available context.
 
 ## Build a discovery tree
 
@@ -78,11 +78,11 @@ Tell the user they can answer compactly, for example `1Y 2=4 3N 4?`. Accept pros
 
 ## Make discovery useful
 
-Do not ask questions merely because a category exists. Every question must change the definition, expose a risk, distinguish alternatives, or reveal a new opportunity.
+Every question must change the definition, expose a risk, distinguish alternatives, or reveal a new opportunity.
 
 Find facts yourself using available repository, research, or product context. Ask the user for judgments, preferences, constraints only they know, and corrections to your interpretation.
 
-Do not hide the interesting option inside a generic question. Propose it explicitly:
+Surface the interesting option as a concrete proposition:
 
 - Weak: “What edge cases matter?”
 - Strong: “Should a failed automated action leave a reviewable draft instead of rolling back invisibly?”
@@ -122,4 +122,4 @@ Present the draft for correction. The session completes only when:
 - Target persona, desired outcomes, core use cases, version one, non-goals, acceptance criteria, and success signals are clear
 - No important requirement depends on a silent assumption
 
-After confirmation, provide a definition handoff containing the approved outcomes, use cases, acceptance criteria, constraints, non-goals, unresolved decisions, and decision provenance. Offer solution architecture as the next phase. Do not let implementation details retroactively masquerade as product requirements.
+After confirmation, provide a definition handoff containing the approved outcomes, use cases, acceptance criteria, constraints, non-goals, unresolved decisions, and decision provenance. Offer solution architecture as the next phase. Keep downstream implementation choices distinct from product requirements.

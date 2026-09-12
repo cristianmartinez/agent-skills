@@ -1,6 +1,6 @@
 ---
 name: feature-assessment
-description: Reverse-engineer an implemented software feature and assess how it works, what is strong, what is flawed, and what should improve. Use when the user wants to understand an existing feature's behavior, architecture, history, risks, limitations, or quality without reviewing a particular diff. This is an as-built feature assessment, not code review or implementation.
+description: Reverse-engineer and assess an implemented feature as a complete user and system flow. Use to understand how an existing feature works, why it has its shape, what is strong or flawed, and what should improve; produces an as-built assessment rather than diff review or implementation.
 license: MIT
 ---
 
@@ -22,25 +22,11 @@ Scope      Relevant product, platform, environment, or version limits
 Evidence   Docs, examples, incidents, metrics, or concerns already supplied
 ```
 
-Do not require a formal specification or fixed git comparison. If the target could refer to several features or paths, ask one compact scoping question. Otherwise state the interpreted scope and proceed.
+A formal specification or fixed git comparison is optional. If the target could refer to several features or paths, ask one compact scoping question. Otherwise state the interpreted scope and proceed.
 
 Scale the work to the feature. A single validation rule may need a short note; a cross-system workflow may need a durable assessment using [references/feature-assessment.md](references/feature-assessment.md).
 
-## Scale and delegate the assessment
-
-Use one agent for a narrow feature with a short, well-localized path. For a substantial or cross-system feature, use independent parallel passes when the environment supports delegation and the added coverage justifies its cost:
-
-- **Feature cartographer:** Reconstruct the user flow, system flow, state, ownership, and relevant history without judging quality.
-- **Product and lifecycle assessor:** Evaluate product coherence, failure and recovery behavior, data lifecycle, user control, and meaningful limitations.
-- **Engineering assessor:** Evaluate architecture, correctness, resilience, security, performance, operability, testability, and changeability.
-
-Give independent passes the same target, scope, and raw evidence locations, but not prior conclusions or expected findings. Keep every pass read-only. Require confirmed facts, inferences, and unknowns from all passes, and evidence → property → consequence judgments from assessors. Split by lens rather than sending duplicate broad prompts.
-
-Use available worker slots; the coordinator may own a pass and complete remaining work sequentially when delegation is limited or unavailable.
-
-When delegating and model routing is available and compatible with the user's constraints, use fast capable models for bounded discovery and path tracing, strong reasoning models for judgment-heavy lenses, and the strongest available reasoning model for final synthesis. A skill cannot silently override a user-selected model or authorize additional cost; use the best available capability when routing is unavailable.
-
-The coordinating agent must inspect decisive evidence and synthesize after all passes finish. Reconcile contradictions, deduplicate shared observations, and preserve distinct consequences. Do not vote or treat agreement as proof; keep material unresolved conflicts explicit.
+Scale the assessment to the feature. Handle a short, localized path locally. For a substantial, cross-system, multi-agent, or model-routed assessment, read [references/parallel-assessment.md](references/parallel-assessment.md) before dispatching work.
 
 ## 2. Discover the feature footprint
 
@@ -82,39 +68,11 @@ This step is complete when the user-facing behavior can be traced to the modules
 
 ## 4. Assess from multiple lenses
 
-Apply only lenses that can materially affect this feature:
-
-- **Product coherence:** Does the workflow solve a recognizable problem consistently? Are states, controls, and failure behavior understandable?
-- **Domain integrity:** Are concepts and invariants explicit, or reconstructed repeatedly from primitives and conventions?
-- **Architecture:** Is responsibility local to a clear owner? Are interfaces deep enough, or does knowledge leak across callers? Are sources of truth duplicated?
-- **Correctness and resilience:** What assumptions, edge cases, concurrency, retry, cancellation, and recovery behavior can break outcomes?
-- **Data lifecycle:** Are identity, persistence, compatibility, migration, retention, and deletion coherent?
-- **Security and privacy:** Are trust boundaries, authorization, validation, sensitive data, and abuse cases handled at the right owner?
-- **Performance and scale:** Where do cost, latency, fan-out, contention, allocation, or unbounded growth emerge under representative use?
-- **Operability:** Can maintainers observe, diagnose, contain, roll back, and recover the feature?
-- **Testability and changeability:** Do tests exercise meaningful interfaces and failure paths? Can the feature evolve locally, or does change cause scattered edits?
-
-For every strength or weakness, connect evidence to consequence:
-
-```text
-Evidence → property of the design or behavior → user or engineering consequence
-```
-
-Avoid aesthetic judgments and generic best-practice checklists. A tradeoff is not automatically a flaw; state what it buys, what it costs, and when that cost becomes unacceptable.
+Read [references/assessment-lenses.md](references/assessment-lenses.md) and apply only lenses that can materially affect this feature. Connect every judgment through evidence → property → user or engineering consequence.
 
 ## 5. Classify weaknesses accurately
 
-Use the narrowest fitting class:
-
-- **Defect:** Current behavior violates an evidenced contract or invariant.
-- **Product limitation:** The feature intentionally or effectively excludes a meaningful use case.
-- **Design tradeoff:** A cost accepted to gain another property; assess whether the original conditions still hold.
-- **Architectural risk:** Ownership, interface, state, or dependency shape makes failure or future change systemic.
-- **Operational risk:** Deployment, observability, recovery, or external dependency behavior threatens reliable operation.
-- **Maintainability debt:** The feature works, but its implementation increases the cost or error rate of future change.
-- **Unknown:** Evidence is insufficient; name the cheapest observation that would resolve it.
-
-Rank issues by consequence and likelihood, not code size or stylistic preference. Distinguish current harm from future pressure. Do not call a local imperfection architectural without evidence that its effects cross owners or recur across paths.
+Use the narrowest class defined in [references/assessment-lenses.md](references/assessment-lenses.md). Rank issues by consequence and likelihood, distinguish current harm from future pressure, and require cross-owner or recurring-path evidence before classifying a local imperfection as architectural.
 
 ## 6. Form the verdict
 
